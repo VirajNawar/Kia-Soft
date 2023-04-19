@@ -12,16 +12,20 @@ const ToDo = () => {
 
         if (editId) {
             const editToDo = todos.find((i) => i.id === editId)
-            const updateEditTodos = todos.map((elem) => 
-            elem.id === editToDo.id 
-            ? (elem = { id: elem.id, todo }) 
-            : (id: {elem.id}, todo: {t.todo})
+            const updateEditTodos = todos.map((elem) =>
+                elem.id === editToDo.id
+                    ? (elem = { id: elem.id, todo })
+                    : { id: elem.id, todo: elem.todo }
             )
+            setToDoS(updateEditTodos)
+            setEditId(0)
+            setToDo("")
+            return
         }
 
         if (todo !== "") {
             setToDoS([{
-                id: `${todo}`,
+                id: `${todo}-${Date.now()}`,
                 todo
             },
             ...todos
@@ -44,13 +48,13 @@ const ToDo = () => {
 
     return (
         <div className='container'>
-            <h1>
+            <h1 className='todo__title'>
                 ToDo App
             </h1>
             <form className='todo__form' onSubmit={handleSubmit}>
                 <input type="text" value={todo} onChange={(e) => setToDo(e.target.value)} />
-                <button>
-                    {editId ? "Edit" : "Go"}
+                <button className={ editId ? 'todo__edit' : 'todo__add'}>
+                    {editId ? "Edit" : "Add"}
                 </button>
             </form>
 
@@ -59,8 +63,8 @@ const ToDo = () => {
                     todos.map((t) => (
                         <li className='todo__li'>
                             <span className='todo__span' key={t.id}>{t.todo}</span>
-                            <button onClick={() => handleEdit(t.id)}>Edit</button>
-                            <button onClick={() => handleDelete(t.id)}>Delete</button>
+                            <button className='todo__edit' onClick={() => handleEdit(t.id)}>Edit</button>
+                            <button className='todo__delete' onClick={() => handleDelete(t.id)}>Delete</button>
                         </li>
                     ))
                 }
