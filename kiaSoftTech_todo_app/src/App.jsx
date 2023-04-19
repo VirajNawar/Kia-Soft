@@ -6,17 +6,6 @@ import ToDo from './components/ToDo'
 
 function App() {
 
-  const arr = [
-    {
-      id: 1,
-      name: 'V'
-    },
-    {
-      id: 2,
-      name: 'N'
-    }
-  ]
-
   return (
     <div className="App">
       <div >
